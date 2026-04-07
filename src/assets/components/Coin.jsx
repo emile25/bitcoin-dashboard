@@ -1,11 +1,13 @@
 import CoinChart from "./CoinChart";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const COINS = ["bitcoin", "ethereum", "solana", "dogecoin", "tether"];
 
-export default function Coin({ isFavo, toggleFavo }) {
+export default function Coin({ isFavo, toggleFavo, zoekterm }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,17 +26,20 @@ export default function Coin({ isFavo, toggleFavo }) {
 
   if (loading) return <p>Laden...</p>;
 
+  const gefilterd = COINS.filter(coin =>
+    coin.includes(zoekterm.toLowerCase())
+  );
+
   return (
     <div>
-      {COINS.map((coin) => {
+      {gefilterd.map((coin) => {
         const info = data[coin];
         const stijging = info.eur_24h_change >= 0;
 
         return (
-          <div key={coin} style={cardStyle}>
+          <div key={coin} style={cardStyle} onClick={() => navigate(`/coin/${coin}`)}>
             <div>
-              {/* ⭐ Ster knop */}
-              <span onClick={() => toggleFavo(coin)}>
+              <span onClick={(e) => { e.stopPropagation(); toggleFavo(coin); }}>
                 {isFavo(coin) ? "⭐" : "☆"}
               </span>
               <h3>{coin.toUpperCase()}</h3>
@@ -58,5 +63,6 @@ const cardStyle = {
   justifyContent: "space-between",
   alignItems: "center",
   padding: "20px",
-  borderBottom: "1px solid #333"
+  borderBottom: "1px solid #333",
+  cursor: "pointer"
 };

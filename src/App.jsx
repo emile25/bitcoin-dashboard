@@ -7,7 +7,7 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [favos, setFavos] = useState(["bitcoin"]);
+  const [favos, setFavos] = useState(["bitcoin", "ethereum", "solana", "dogecoin", "tether" ]);
   const [zoekterm, setZoekterm] = useState("");
 
   function toggleFavo(coin) {
@@ -30,7 +30,7 @@ function App() {
             toggleFavo={toggleFavo}
             zoekterm={zoekterm}
           />
-        </div>
+        </div> 
       } />
       <Route path="/coin/:coinId" element={<CoinDetail />} />
     </Routes>

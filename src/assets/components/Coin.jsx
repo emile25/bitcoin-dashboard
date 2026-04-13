@@ -39,9 +39,9 @@ export default function Coin({ isFavo, toggleFavo, zoekterm }) {
         return (
           <div key={coin} style={cardStyle} onClick={() => navigate(`/coin/${coin}`)}>
             <div>
-              <span onClick={(e) => { e.stopPropagation(); toggleFavo(coin); }}>
-                {isFavo(coin) ? "⭐" : "☆"}
-              </span>
+              <button onClick={(e) => { e.stopPropagation(); toggleFavo(coin); }}>
+                {isFavo(coin) ? "Favoriet" : "Favoriet maken"}
+              </button>
               <h3>{coin.toUpperCase()}</h3>
               <p>€{info.eur.toLocaleString("nl-NL")}</p>
               <p style={{ color: stijging ? "green" : "red" }}>

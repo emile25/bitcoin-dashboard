@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import CoinChart from "./components/CoinChart";  // ← dit aanpassen
+import CoinChart from "./components/CoinChart";
 
 export default function FavoCoin({ favos, toggleFavo }) {
   const [data, setData] = useState(null);
@@ -16,19 +16,26 @@ export default function FavoCoin({ favos, toggleFavo }) {
 
   return (
     <div>
-      <h2>⭐ Favorite Coins</h2>
+      <h2>Favorite Coins</h2>
       {favos.map(coin => {
         const info = data[coin];
         if (!info) return null;
         const stijging = info.eur_24h_change >= 0;
 
+
+
+        
         return (
           <div key={coin}>
-            <span onClick={() => toggleFavo(coin)}>⭐</span>
-            <h3>{coin}</h3>
-            <p>€{info.eur}</p>
-            <p>{stijging ? "📈 Stijging" : "📉 Daling"}</p>
-            <CoinChart coin={coin} />
+            <button onClick={() => toggleFavo(coin)}>
+              Verwijder favoriet
+            </button>
+            <h3>{coin.toUpperCase()}</h3>
+            <p>€{info.eur.toLocaleString("nl-NL")}</p>
+            <p style={{ color: stijging ? "green" : "red" }}>
+              {stijging ? "▲" : "▼"} {info.eur_24h_change.toFixed(2)}%
+            </p>
+            <CoinChart coinId={coin} />
           </div>
         );
       })}

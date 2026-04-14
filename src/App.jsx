@@ -3,11 +3,12 @@ import Coin from "./assets/components/coin.jsx";
 import FavoCoin from "./assets/favocoin.jsx";
 import SearchBar from "./assets/components/searchbar.jsx";
 import CoinDetail from "./assets/components/CoinDetails.jsx";
+import MarktDiagram from "./assets/MarktDiagram.jsx";
 import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [favos, setFavos] = useState(["bitcoin", "ethereum", "solana", "dogecoin", "tether" ]);
+  const [favos, setFavos] = useState(["bitcoin"]);
   const [zoekterm, setZoekterm] = useState("");
 
   function toggleFavo(coin) {
@@ -24,13 +25,15 @@ function App() {
         <div>
           <FavoCoin favos={favos} toggleFavo={toggleFavo} />
           <hr />
+          <MarktDiagram />
+          <hr />
           <SearchBar zoekterm={zoekterm} setZoekterm={setZoekterm} />
           <Coin
             isFavo={(coin) => favos.includes(coin)}
             toggleFavo={toggleFavo}
             zoekterm={zoekterm}
           />
-        </div> 
+        </div>
       } />
       <Route path="/coin/:coinId" element={<CoinDetail />} />
     </Routes>
